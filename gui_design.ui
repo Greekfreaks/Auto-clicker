@@ -83,7 +83,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QComboBox" name="comboBox">
+        <widget class="QComboBox" name="clickingMethodInput">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -128,7 +128,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox">
+        <widget class="QDoubleSpinBox" name="clickDelayInput">
          <property name="decimals">
           <number>1</number>
          </property>
@@ -138,7 +138,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+        <widget class="QDoubleSpinBox" name="delayStartInput">
          <property name="readOnly">
           <bool>false</bool>
          </property>
@@ -283,7 +283,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QKeySequenceEdit" name="keySequenceEdit"/>
+        <widget class="QKeySequenceEdit" name="startKeybindInput"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_10">
@@ -293,7 +293,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QKeySequenceEdit" name="keySequenceEdit_2"/>
+        <widget class="QKeySequenceEdit" name="stopKeybindInput"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_11">
@@ -303,7 +303,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QKeySequenceEdit" name="keySequenceEdit_3"/>
+        <widget class="QKeySequenceEdit" name="forceCloseKeybindInput"/>
        </item>
       </layout>
      </item>

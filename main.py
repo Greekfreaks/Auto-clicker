@@ -1,4 +1,7 @@
-from clicker_logic import AutoClicker
+from gui_main import MainWindow
+from PySide6.QtWidgets import QApplication
 
-clicker = AutoClicker()
-clicker.start()
+app = QApplication()
+window = MainWindow()
+window.show()
+app.exec()
