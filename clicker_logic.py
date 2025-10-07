@@ -26,7 +26,11 @@ class AutoClicker:
                 self.running = False
             time.sleep(0.05)
 
+    def set_click_method(self, value):
+        self.clickingMethod = value
+
     def left_click(self):
+        time.sleep(self.startDelay)
         while self.running:
             if self.clicking:
                 pyautogui.leftClick()
@@ -34,6 +38,7 @@ class AutoClicker:
             time.sleep(self.clickDelay)
 
     def middle_click(self):
+        time.sleep(self.startDelay)
         while self.running:
             if self.clicking:
                 pyautogui.rightClick()
@@ -41,6 +46,7 @@ class AutoClicker:
             time.sleep(self.clickDelay)
 
     def right_click(self):
+        time.sleep(self.startDelay)
         while self.running:
             if self.clicking:
                 pyautogui.middleClick()
