@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubleSpinBox,
-    QFormLayout, QFrame, QGroupBox, QKeySequenceEdit,
-    QLCDNumber, QLabel, QLayout, QMainWindow,
-    QSizePolicy, QSlider, QStatusBar, QTabWidget,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
+    QGroupBox, QKeySequenceEdit, QLCDNumber, QLabel,
+    QLayout, QMainWindow, QSizePolicy, QSlider,
+    QSpinBox, QStatusBar, QTabWidget, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -73,24 +73,22 @@ class Ui_MainWindow(object):
 
         self.autoClickSettings.setWidget(1, QFormLayout.ItemRole.LabelRole, self.label_2)
 
-        self.clickDelayInput = QDoubleSpinBox(self.verticalLayoutWidget)
-        self.clickDelayInput.setObjectName(u"clickDelayInput")
-        self.clickDelayInput.setDecimals(1)
-        self.clickDelayInput.setMaximum(10000.000000000000000)
-
-        self.autoClickSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.clickDelayInput)
-
         self.label_3 = QLabel(self.verticalLayoutWidget)
         self.label_3.setObjectName(u"label_3")
 
         self.autoClickSettings.setWidget(2, QFormLayout.ItemRole.LabelRole, self.label_3)
 
-        self.startDelayInput = QDoubleSpinBox(self.verticalLayoutWidget)
+        self.clickDelayInput = QSpinBox(self.verticalLayoutWidget)
+        self.clickDelayInput.setObjectName(u"clickDelayInput")
+        self.clickDelayInput.setMaximum(1000)
+        self.clickDelayInput.setValue(250)
+
+        self.autoClickSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.clickDelayInput)
+
+        self.startDelayInput = QSpinBox(self.verticalLayoutWidget)
         self.startDelayInput.setObjectName(u"startDelayInput")
-        self.startDelayInput.setReadOnly(False)
-        self.startDelayInput.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.UpDownArrows)
-        self.startDelayInput.setDecimals(1)
-        self.startDelayInput.setMaximum(10000.000000000000000)
+        self.startDelayInput.setMaximum(1000)
+        self.startDelayInput.setValue(50)
 
         self.autoClickSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.startDelayInput)
 
