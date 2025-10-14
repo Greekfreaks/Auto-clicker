@@ -80,14 +80,14 @@ class Ui_MainWindow(object):
 
         self.clickDelayInput = QSpinBox(self.verticalLayoutWidget)
         self.clickDelayInput.setObjectName(u"clickDelayInput")
-        self.clickDelayInput.setMaximum(1000)
+        self.clickDelayInput.setMaximum(10000)
         self.clickDelayInput.setValue(250)
 
         self.autoClickSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.clickDelayInput)
 
         self.startDelayInput = QSpinBox(self.verticalLayoutWidget)
         self.startDelayInput.setObjectName(u"startDelayInput")
-        self.startDelayInput.setMaximum(1000)
+        self.startDelayInput.setMaximum(10000)
         self.startDelayInput.setValue(50)
 
         self.autoClickSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.startDelayInput)
