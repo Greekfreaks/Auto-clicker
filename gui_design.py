@@ -116,24 +116,27 @@ class Ui_MainWindow(object):
 
         self.moreSettings.setWidget(0, QFormLayout.ItemRole.LabelRole, self.label_5)
 
-        self.comboBox_2 = QComboBox(self.verticalLayoutWidget_2)
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.clickTypeInput = QComboBox(self.verticalLayoutWidget_2)
+        self.clickTypeInput.addItem("")
+        self.clickTypeInput.addItem("")
+        self.clickTypeInput.addItem("")
+        self.clickTypeInput.setObjectName(u"clickTypeInput")
 
-        self.moreSettings.setWidget(0, QFormLayout.ItemRole.FieldRole, self.comboBox_2)
+        self.moreSettings.setWidget(0, QFormLayout.ItemRole.FieldRole, self.clickTypeInput)
 
         self.label_6 = QLabel(self.verticalLayoutWidget_2)
         self.label_6.setObjectName(u"label_6")
 
         self.moreSettings.setWidget(1, QFormLayout.ItemRole.LabelRole, self.label_6)
 
-        self.horizontalSlider_3 = QSlider(self.verticalLayoutWidget_2)
-        self.horizontalSlider_3.setObjectName(u"horizontalSlider_3")
-        self.horizontalSlider_3.setOrientation(Qt.Orientation.Horizontal)
+        self.holdDurationSlider = QSlider(self.verticalLayoutWidget_2)
+        self.holdDurationSlider.setObjectName(u"holdDurationSlider")
+        self.holdDurationSlider.setMinimum(50)
+        self.holdDurationSlider.setMaximum(2000)
+        self.holdDurationSlider.setValue(500)
+        self.holdDurationSlider.setOrientation(Qt.Orientation.Horizontal)
 
-        self.moreSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.horizontalSlider_3)
+        self.moreSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.holdDurationSlider)
 
 
         self.moreSettingsContainer.addLayout(self.moreSettings)
@@ -165,7 +168,7 @@ class Ui_MainWindow(object):
         self.startKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.startKeyInput.setObjectName(u"startKeyInput")
         self.startKeyInput.setClearButtonEnabled(True)
-        self.startKeyInput.setMaximumSequenceLength(1)
+        self.startKeyInput.setMaximumSequenceLength(Q_INT64_C(1))
 
         self.keybindSettings.setWidget(0, QFormLayout.ItemRole.FieldRole, self.startKeyInput)
 
@@ -177,7 +180,7 @@ class Ui_MainWindow(object):
         self.stopKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.stopKeyInput.setObjectName(u"stopKeyInput")
         self.stopKeyInput.setClearButtonEnabled(True)
-        self.stopKeyInput.setMaximumSequenceLength(1)
+        self.stopKeyInput.setMaximumSequenceLength(Q_INT64_C(1))
 
         self.keybindSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.stopKeyInput)
 
@@ -189,7 +192,7 @@ class Ui_MainWindow(object):
         self.exitKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.exitKeyInput.setObjectName(u"exitKeyInput")
         self.exitKeyInput.setClearButtonEnabled(True)
-        self.exitKeyInput.setMaximumSequenceLength(1)
+        self.exitKeyInput.setMaximumSequenceLength(Q_INT64_C(1))
 
         self.keybindSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.exitKeyInput)
 
@@ -257,12 +260,12 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Delay between clicks (ms)", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Delay before clicking (ms)", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"More Settings", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Setting 1", None))
-        self.comboBox_2.setItemText(0, QCoreApplication.translate("MainWindow", u"Left Click", None))
-        self.comboBox_2.setItemText(1, QCoreApplication.translate("MainWindow", u"Right Click", None))
-        self.comboBox_2.setItemText(2, QCoreApplication.translate("MainWindow", u"Middle Click", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Click Type", None))
+        self.clickTypeInput.setItemText(0, QCoreApplication.translate("MainWindow", u"Single Click", None))
+        self.clickTypeInput.setItemText(1, QCoreApplication.translate("MainWindow", u"Double Click", None))
+        self.clickTypeInput.setItemText(2, QCoreApplication.translate("MainWindow", u"Hold Click", None))
 
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Setting 2", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Hold Duration (ms)", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Controls", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Start clicking key", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stop clicking key", None))

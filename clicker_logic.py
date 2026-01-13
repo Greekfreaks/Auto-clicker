@@ -3,6 +3,7 @@ import time
 import keyboard
 import pyautogui
 from pyautogui import click
+from collections import deque
 
 
 class AutoClicker:
@@ -15,10 +16,18 @@ class AutoClicker:
         self.clickDelay = .5
         self.startDelay = .5
         self.clickingMethod = 'Right Click'
+        self.clickType = 'Single Click'  # Single, Double, or Hold
+        self.holdDuration = 0.5  # Duration in seconds for hold click
 
         self.startClickKey = 's'
         self.stopClickKey = 'x'
         self.exitClickKey = 'q'
+
+        # CPS tracking
+        self.click_timestamps = deque(maxlen=100)  # Store last 100 click timestamps
+        self.cps_callback = None  # Callback function to update GUI
+        self.last_cps_update = time.time()
+        self.cps_update_interval = 0.1  # Update CPS every 100ms
 
         pyautogui.PAUSE = 0 #remove default delay between clicks, this using the sleep class instead
 
@@ -40,6 +49,36 @@ class AutoClicker:
         self.clickingMethod = value
         print(f"Click delay set to {self.clickingMethod}")
 
+    def perform_click(self, button='left'):
+        """Perform a click based on the current click type"""
+        if self.clickType == 'Single Click':
+            if button == 'left':
+                pyautogui.leftClick()
+            elif button == 'middle':
+                pyautogui.middleClick()
+            elif button == 'right':
+                pyautogui.rightClick()
+        elif self.clickType == 'Double Click':
+            if button == 'left':
+                pyautogui.leftClick(clicks=2)
+            elif button == 'middle':
+                pyautogui.middleClick(clicks=2)
+            elif button == 'right':
+                pyautogui.rightClick(clicks=2)
+        elif self.clickType == 'Hold Click':
+            if button == 'left':
+                pyautogui.mouseDown(button='left')
+                time.sleep(self.holdDuration)
+                pyautogui.mouseUp(button='left')
+            elif button == 'middle':
+                pyautogui.mouseDown(button='middle')
+                time.sleep(self.holdDuration)
+                pyautogui.mouseUp(button='middle')
+            elif button == 'right':
+                pyautogui.mouseDown(button='right')
+                time.sleep(self.holdDuration)
+                pyautogui.mouseUp(button='right')
+
     def left_click(self):
         delay_flag = False
         while self.running:
@@ -47,7 +86,8 @@ class AutoClicker:
                 time.sleep(self.startDelay)
                 delay_flag = True
             if self.clicking:
-                pyautogui.leftClick()
+                self.perform_click('left')
+                self.record_click()
                 print("Click!")
             time.sleep(self.clickDelay)
 
@@ -58,7 +98,8 @@ class AutoClicker:
                 time.sleep(self.startDelay)
                 delay_flag = True
             if self.clicking:
-                pyautogui.middleClick()
+                self.perform_click('middle')
+                self.record_click()
                 print("Click!")
             time.sleep(self.clickDelay)
 
@@ -69,7 +110,8 @@ class AutoClicker:
                 time.sleep(self.startDelay)
                 delay_flag = True
             if self.clicking:
-                pyautogui.rightClick()
+                self.perform_click('right')
+                self.record_click()
                 print("Click!")
             time.sleep(self.clickDelay)
 
@@ -86,6 +128,14 @@ class AutoClicker:
         print(f"Clicking method set to {method}")
         self.clickingMethod = method
 
+    def set_click_type(self, click_type:str):
+        print(f"Click type set to: {click_type}")
+        self.clickType = click_type
+
+    def set_hold_duration(self, duration:int):
+        print(f"Hold duration set to: {duration}ms")
+        self.holdDuration = duration / 1000  # Convert to seconds
+
     #udpate keybinds taken from the keybinds menu
     def set_start_key(self, method:str):
         print(f"Start keybind set to: {method}")
@@ -98,6 +148,34 @@ class AutoClicker:
     def set_exit_key(self, method:str):
         print(f"Exit keybind set to: {method}")
         self.exitClickKey = method
+
+    def set_cps_callback(self, callback):
+        """Set the callback function to update CPS in the GUI"""
+        self.cps_callback = callback
+
+    def record_click(self):
+        """Record a click timestamp and update CPS if needed"""
+        current_time = time.time()
+        self.click_timestamps.append(current_time)
+
+        # Update CPS if enough time has passed
+        if current_time - self.last_cps_update >= self.cps_update_interval:
+            self.update_cps()
+            self.last_cps_update = current_time
+
+    def update_cps(self):
+        """Calculate current CPS and call the callback"""
+        if not self.cps_callback:
+            return
+
+        current_time = time.time()
+        # Remove timestamps older than 1 second
+        while self.click_timestamps and current_time - self.click_timestamps[0] > 1.0:
+            self.click_timestamps.popleft()
+
+        # Calculate CPS based on clicks in the last second
+        cps = len(self.click_timestamps)
+        self.cps_callback(cps)
 
     def start_clicker(self):
         listener_thread = threading.Thread(target=self.key_listener, daemon=True)

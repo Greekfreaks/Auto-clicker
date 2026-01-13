@@ -68,7 +68,20 @@ GUI widgets connect to backend methods via Qt signals:
 **Fixed in commit ceff980**:
 - ✓ Exit keybind now properly closes the entire application (not just stops clicking logic)
 
-## Unimplemented Features
+## Implemented Features
 
-- **CPS Display**: UI has LCD widget (`lcdNumber`) but no actual calculation/update logic
-- **More Settings Section**: Placeholder UI elements (`comboBox_2`, `horizontalSlider_3`) not connected to any functionality
+### CPS Display (Added in current session)
+- Real-time clicks-per-second calculation and display
+- Tracks clicks in a rolling 1-second window
+- Updates LCD widget every 100ms
+- Thread-safe communication via Qt signals
+
+### Click Type Variations (Added in current session)
+The "More Settings" section now includes:
+- **Click Type selector** (`clickTypeInput`): Choose between:
+  - Single Click: Standard single click (default)
+  - Double Click: Performs two clicks rapidly
+  - Hold Click: Mouse down + hold + mouse up
+- **Hold Duration slider** (`holdDurationSlider`): Adjustable duration (50-2000ms) for Hold Click mode
+
+Both settings work with all click methods (Left, Middle, Right)

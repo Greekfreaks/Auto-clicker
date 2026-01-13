@@ -197,25 +197,25 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>Setting 1</string>
+          <string>Click Type</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QComboBox" name="comboBox_2">
+        <widget class="QComboBox" name="clickTypeInput">
          <item>
           <property name="text">
-           <string>Left Click</string>
+           <string>Single Click</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Right Click</string>
+           <string>Double Click</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Middle Click</string>
+           <string>Hold Click</string>
           </property>
          </item>
         </widget>
@@ -223,12 +223,21 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Setting 2</string>
+          <string>Hold Duration (ms)</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QSlider" name="horizontalSlider_3">
+        <widget class="QSlider" name="holdDurationSlider">
+         <property name="minimum">
+          <number>50</number>
+         </property>
+         <property name="maximum">
+          <number>2000</number>
+         </property>
+         <property name="value">
+          <number>500</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Orientation::Horizontal</enum>
          </property>
