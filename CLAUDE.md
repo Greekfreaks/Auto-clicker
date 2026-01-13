@@ -57,17 +57,16 @@ GUI widgets connect to backend methods via Qt signals:
 - `startDelayInput.valueChanged` → `update_start_delay()`
 - Keybind inputs use `keySequenceChanged` signals
 
-## Known Issues
+## Recently Fixed Issues
 
-### Critical Bugs
+**Fixed in commit 96b6339**:
+- ✓ Fixed swapped click methods in `middle_click()` and `right_click()`
+- ✓ Fixed keybind setters (`set_stop_key()`, `set_exit_key()`) setting wrong variables
+- ✓ Fixed inconsistent `delay_flag` implementation across all click methods
+- ✓ Removed redundant logic in `update_clicking_method()`
 
-**clicker_logic.py**:
-- Lines 57-66: `middle_click()` and `right_click()` call the wrong pyautogui methods (swapped)
-- Lines 88-94: `set_stop_key()` and `set_exit_key()` both incorrectly set `self.startClickKey`
-- Lines 52-68: `delay_flag` implementation is inconsistent across click methods
-
-**gui_main.py**:
-- Lines 40-46: Redundant if-elif chain in `update_clicking_method()` - calls `set_click_method()` multiple times unnecessarily
+**Fixed in commit ceff980**:
+- ✓ Exit keybind now properly closes the entire application (not just stops clicking logic)
 
 ## Unimplemented Features
 
