@@ -16,16 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
-    QGroupBox, QKeySequenceEdit, QLCDNumber, QLabel,
-    QLayout, QMainWindow, QSizePolicy, QSlider,
-    QSpinBox, QStatusBar, QTabWidget, QVBoxLayout,
-    QWidget)
+    QKeySequenceEdit, QLCDNumber, QLabel, QLayout,
+    QMainWindow, QSizePolicy, QSlider, QSpinBox,
+    QStatusBar, QTabWidget, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(869, 660)
+        MainWindow.resize(763, 471)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setTabShape(QTabWidget.TabShape.Rounded)
         self.centralwidget = QWidget(MainWindow)
@@ -165,6 +164,8 @@ class Ui_MainWindow(object):
 
         self.startKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.startKeyInput.setObjectName(u"startKeyInput")
+        self.startKeyInput.setClearButtonEnabled(True)
+        self.startKeyInput.setMaximumSequenceLength(1)
 
         self.keybindSettings.setWidget(0, QFormLayout.ItemRole.FieldRole, self.startKeyInput)
 
@@ -175,6 +176,8 @@ class Ui_MainWindow(object):
 
         self.stopKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.stopKeyInput.setObjectName(u"stopKeyInput")
+        self.stopKeyInput.setClearButtonEnabled(True)
+        self.stopKeyInput.setMaximumSequenceLength(1)
 
         self.keybindSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.stopKeyInput)
 
@@ -185,6 +188,8 @@ class Ui_MainWindow(object):
 
         self.exitKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.exitKeyInput.setObjectName(u"exitKeyInput")
+        self.exitKeyInput.setClearButtonEnabled(True)
+        self.exitKeyInput.setMaximumSequenceLength(1)
 
         self.keybindSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.exitKeyInput)
 
@@ -231,43 +236,6 @@ class Ui_MainWindow(object):
         self.line_2.setGeometry(QRect(400, 230, 211, 21))
         self.line_2.setFrameShape(QFrame.Shape.HLine)
         self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
-        self.groupBox = QGroupBox(self.centralwidget)
-        self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setGeometry(QRect(30, 430, 311, 131))
-        self.groupBox.setStyleSheet(u"background-color: rgb(180, 180, 180);\n"
-"color: rgb(0, 0, 0);")
-        self.layoutWidget = QWidget(self.groupBox)
-        self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(10, 20, 291, 101))
-        self.moreSettings_2 = QFormLayout(self.layoutWidget)
-        self.moreSettings_2.setObjectName(u"moreSettings_2")
-        self.moreSettings_2.setHorizontalSpacing(25)
-        self.moreSettings_2.setVerticalSpacing(35)
-        self.moreSettings_2.setContentsMargins(10, 10, 10, 10)
-        self.label_14 = QLabel(self.layoutWidget)
-        self.label_14.setObjectName(u"label_14")
-
-        self.moreSettings_2.setWidget(0, QFormLayout.ItemRole.LabelRole, self.label_14)
-
-        self.comboBox_3 = QComboBox(self.layoutWidget)
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.setObjectName(u"comboBox_3")
-
-        self.moreSettings_2.setWidget(0, QFormLayout.ItemRole.FieldRole, self.comboBox_3)
-
-        self.label_15 = QLabel(self.layoutWidget)
-        self.label_15.setObjectName(u"label_15")
-
-        self.moreSettings_2.setWidget(1, QFormLayout.ItemRole.LabelRole, self.label_15)
-
-        self.horizontalSlider_4 = QSlider(self.layoutWidget)
-        self.horizontalSlider_4.setObjectName(u"horizontalSlider_4")
-        self.horizontalSlider_4.setOrientation(Qt.Orientation.Horizontal)
-
-        self.moreSettings_2.setWidget(1, QFormLayout.ItemRole.FieldRole, self.horizontalSlider_4)
-
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -298,15 +266,9 @@ class Ui_MainWindow(object):
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Controls", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Start clicking key", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stop clicking key", None))
+        self.stopKeyInput.setKeySequence("")
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Force close app", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"CPS", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Clicks per second: ", None))
-        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"More Settings", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Setting 1", None))
-        self.comboBox_3.setItemText(0, QCoreApplication.translate("MainWindow", u"Left Click", None))
-        self.comboBox_3.setItemText(1, QCoreApplication.translate("MainWindow", u"Right Click", None))
-        self.comboBox_3.setItemText(2, QCoreApplication.translate("MainWindow", u"Middle Click", None))
-
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Setting 2", None))
     # retranslateUi
 

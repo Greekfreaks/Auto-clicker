@@ -18,11 +18,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clickDelayInput.valueChanged.connect(self.update_click_delay)
         self.startDelayInput.valueChanged.connect(self.update_start_delay)
 
-        #todo: find function to get updated keybinds from UI
+        #read the inputted keybinds
+        self.startKeyInput.keySequenceChanged.connect(self.update_start_key)
+        self.startKeyInput.setKeySequence('S')
+        self.stopKeyInput.keySequenceChanged.connect(self.update_stop_key)
+        self.stopKeyInput.setKeySequence('X')
+        self.exitKeyInput.keySequenceChanged.connect(self.update_exit_key)
+        self.exitKeyInput.setKeySequence('Q')
+
         #todo: find best output box to show CPS
 
 
-    #stock standard crap right here
+    #following 3 functions on parsing value taken from the click settings in UI
     def update_click_delay(self, value):
         self.clicker.set_click_delay(value)
 
@@ -31,12 +38,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def update_clicking_method(self, method:str):
         self.clicker.set_click_method(method)
-        if method == "Left Click":
-            self.clicker.set_click_method(method)
-        elif method == "Right Click":
-            self.clicker.set_click_method(method)
-        elif method == "Middle Click":
-            self.clicker.set_click_method(method)
+
+    #following functions are responsible for reading keybinds (in order of UI)
+    def update_start_key(self, sequence):
+        keystrokes = sequence.toString().lower()
+        self.clicker.set_start_key(keystrokes)
+
+    def update_stop_key(self, sequence):
+        keystrokes = sequence.toString().lower()
+        self.clicker.set_stop_key(keystrokes)
+
+    def update_exit_key(self, sequence):
+        keystrokes = sequence.toString().lower()
+        self.clicker.set_exit_key(keystrokes)
 
 
 class ClickerThread(QThread):

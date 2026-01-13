@@ -7,6 +7,7 @@ from pyautogui import click
 
 class AutoClicker:
     def __init__(self):
+        #loop variables
         self.clicking = False
         self.running = True
 
@@ -14,17 +15,21 @@ class AutoClicker:
         self.startDelay = .5
         self.clickingMethod = 'Right Click'
 
+        self.startClickKey = 's'
+        self.stopClickKey = 'x'
+        self.exitClickKey = 'q'
+
         pyautogui.PAUSE = 0 #remove default delay between clicks, this using the sleep class instead
 
     def key_listener(self):
         while self.running:
-            if keyboard.is_pressed('s'):
+            if keyboard.is_pressed(self.startClickKey):
                 print('start')
                 self.clicking = True
-            elif keyboard.is_pressed('x'):
+            elif keyboard.is_pressed(self.stopClickKey):
                 print('stop')
                 self.clicking = False
-            elif keyboard.is_pressed('q'):
+            elif keyboard.is_pressed(self.exitClickKey):
                 print('quit')
                 self.running = False
             time.sleep(0.1)
@@ -46,22 +51,27 @@ class AutoClicker:
 
     def middle_click(self):
         delay_flag = False
-        time.sleep(self.startDelay)
         while self.running:
-            if self.clicking:
-                pyautogui.rightClick()
-                print("Click!")
-            time.sleep(self.clickDelay)
-
-    def right_click(self):
-        delay_flag = False
-        time.sleep(self.startDelay)
-        while self.running:
+            if not delay_flag:
+                time.sleep(self.startDelay)
+                delay_flag = True
             if self.clicking:
                 pyautogui.middleClick()
                 print("Click!")
             time.sleep(self.clickDelay)
 
+    def right_click(self):
+        delay_flag = False
+        while self.running:
+            if not delay_flag:
+                time.sleep(self.startDelay)
+                delay_flag = True
+            if self.clicking:
+                pyautogui.rightClick()
+                print("Click!")
+            time.sleep(self.clickDelay)
+
+    #update values taken from the auto click settings
     def set_click_delay(self, value):
         print(f"Click delay set to {value}ms")
         self.clickDelay = value / 1000
@@ -74,8 +84,28 @@ class AutoClicker:
         print(f"Clicking method set to {method}")
         self.clickingMethod = method
 
+    #udpate keybinds taken from the keybinds menu
+    def set_start_key(self, method:str):
+        print(f"Start keybind set to: {method}")
+        self.startClickKey = method
+
+    def set_stop_key(self, method:str):
+        print(f"Stop keybind set to: {method}")
+        self.stopClickKey = method
+
+    def set_exit_key(self, method:str):
+        print(f"Exit keybind set to: {method}")
+        self.exitClickKey = method
+
     def start_clicker(self):
         listener_thread = threading.Thread(target=self.key_listener, daemon=True)
         listener_thread.start()
-        self.left_click()
-
+        if self.clickingMethod == 'Middle Click':
+            self.middle_click()
+        elif self.clickingMethod == 'Right Click':
+            self.right_click()
+        elif self.clickingMethod == 'Left Click':
+            self.left_click()
+        else:
+            print("Invalid clicking method set")
+            return 1
