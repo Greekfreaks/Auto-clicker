@@ -1,4 +1,4 @@
-from PySide6.QtCore import QThread
+from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QApplication, QMainWindow
 from gui_design import Ui_MainWindow
 from clicker_logic import AutoClicker
@@ -11,6 +11,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.clicker = AutoClicker()
         self.clicker_thread = ClickerThread(self.clicker)
+
+        # Connect exit signal to close the application
+        self.clicker_thread.exit_requested.connect(self.close_application)
+
         self.clicker_thread.start()
 
         #takes the value from auto click settings (ordered same as UI) and parses through functions to update value in AutoClicker class
@@ -52,11 +56,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         keystrokes = sequence.toString().lower()
         self.clicker.set_exit_key(keystrokes)
 
+    def close_application(self):
+        """Close the application when exit key is pressed"""
+        print("Exit key pressed, closing application...")
+        QApplication.quit()
+
 
 class ClickerThread(QThread):
+    exit_requested = Signal()
+
     def __init__(self, clicker):
         super().__init__()
         self.clicker = clicker
 
     def run(self):
         self.clicker.start_clicker()
+        # After clicker exits, check if it was due to exit key press
+        if self.clicker.exit_requested:
+            self.exit_requested.emit()

@@ -10,6 +10,7 @@ class AutoClicker:
         #loop variables
         self.clicking = False
         self.running = True
+        self.exit_requested = False
 
         self.clickDelay = .5
         self.startDelay = .5
@@ -32,6 +33,7 @@ class AutoClicker:
             elif keyboard.is_pressed(self.exitClickKey):
                 print('quit')
                 self.running = False
+                self.exit_requested = True
             time.sleep(0.1)
 
     def set_click_method(self, value):
