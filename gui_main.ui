@@ -291,7 +291,7 @@
           <bool>true</bool>
          </property>
          <property name="maximumSequenceLength">
-          <longLong>1</longLong>
+          <number>1</number>
          </property>
         </widget>
        </item>
@@ -311,7 +311,7 @@
           <bool>true</bool>
          </property>
          <property name="maximumSequenceLength">
-          <longLong>1</longLong>
+          <number>1</number>
          </property>
         </widget>
        </item>
@@ -328,7 +328,7 @@
           <bool>true</bool>
          </property>
          <property name="maximumSequenceLength">
-          <longLong>1</longLong>
+          <number>1</number>
          </property>
         </widget>
        </item>

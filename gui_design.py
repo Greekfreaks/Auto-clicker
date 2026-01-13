@@ -168,7 +168,7 @@ class Ui_MainWindow(object):
         self.startKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.startKeyInput.setObjectName(u"startKeyInput")
         self.startKeyInput.setClearButtonEnabled(True)
-        self.startKeyInput.setMaximumSequenceLength(Q_INT64_C(1))
+        self.startKeyInput.setMaximumSequenceLength(1)
 
         self.keybindSettings.setWidget(0, QFormLayout.ItemRole.FieldRole, self.startKeyInput)
 
@@ -180,7 +180,7 @@ class Ui_MainWindow(object):
         self.stopKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.stopKeyInput.setObjectName(u"stopKeyInput")
         self.stopKeyInput.setClearButtonEnabled(True)
-        self.stopKeyInput.setMaximumSequenceLength(Q_INT64_C(1))
+        self.stopKeyInput.setMaximumSequenceLength(1)
 
         self.keybindSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.stopKeyInput)
 
@@ -192,7 +192,7 @@ class Ui_MainWindow(object):
         self.exitKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
         self.exitKeyInput.setObjectName(u"exitKeyInput")
         self.exitKeyInput.setClearButtonEnabled(True)
-        self.exitKeyInput.setMaximumSequenceLength(Q_INT64_C(1))
+        self.exitKeyInput.setMaximumSequenceLength(1)
 
         self.keybindSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.exitKeyInput)
 
