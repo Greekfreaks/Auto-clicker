@@ -15,21 +15,22 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
-    QKeySequenceEdit, QLCDNumber, QLabel, QLayout,
-    QMainWindow, QSizePolicy, QSlider, QSpinBox,
-    QStatusBar, QTabWidget, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFormLayout,
+    QFrame, QKeySequenceEdit, QLCDNumber, QLabel,
+    QLayout, QMainWindow, QSizePolicy, QSlider,
+    QSpinBox, QStatusBar, QTabWidget, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(763, 471)
+        MainWindow.resize(800, 700)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setTabShape(QTabWidget.TabShape.Rounded)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setMinimumSize(QSize(644, 450))
+        self.centralwidget.setMinimumSize(QSize(800, 680))
         self.verticalLayoutWidget = QWidget(self.centralwidget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
         self.verticalLayoutWidget.setGeometry(QRect(30, 20, 311, 231))
@@ -96,7 +97,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayoutWidget_2 = QWidget(self.centralwidget)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(30, 270, 311, 151))
+        self.verticalLayoutWidget_2.setGeometry(QRect(30, 270, 360, 380))
         self.moreSettingsContainer = QVBoxLayout(self.verticalLayoutWidget_2)
         self.moreSettingsContainer.setObjectName(u"moreSettingsContainer")
         self.moreSettingsContainer.setContentsMargins(0, 0, 0, 0)
@@ -138,12 +139,81 @@ class Ui_MainWindow(object):
 
         self.moreSettings.setWidget(1, QFormLayout.ItemRole.FieldRole, self.holdDurationSlider)
 
+        self.label_randomDelay = QLabel(self.verticalLayoutWidget_2)
+        self.label_randomDelay.setObjectName(u"label_randomDelay")
+
+        self.moreSettings.setWidget(2, QFormLayout.ItemRole.LabelRole, self.label_randomDelay)
+
+        self.randomDelayCheckbox = QCheckBox(self.verticalLayoutWidget_2)
+        self.randomDelayCheckbox.setObjectName(u"randomDelayCheckbox")
+
+        self.moreSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.randomDelayCheckbox)
+
+        self.label_minDelay = QLabel(self.verticalLayoutWidget_2)
+        self.label_minDelay.setObjectName(u"label_minDelay")
+
+        self.moreSettings.setWidget(3, QFormLayout.ItemRole.LabelRole, self.label_minDelay)
+
+        self.minDelayInput = QSpinBox(self.verticalLayoutWidget_2)
+        self.minDelayInput.setObjectName(u"minDelayInput")
+        self.minDelayInput.setMaximum(10000)
+        self.minDelayInput.setValue(250)
+
+        self.moreSettings.setWidget(3, QFormLayout.ItemRole.FieldRole, self.minDelayInput)
+
+        self.label_maxDelay = QLabel(self.verticalLayoutWidget_2)
+        self.label_maxDelay.setObjectName(u"label_maxDelay")
+
+        self.moreSettings.setWidget(4, QFormLayout.ItemRole.LabelRole, self.label_maxDelay)
+
+        self.maxDelayInput = QSpinBox(self.verticalLayoutWidget_2)
+        self.maxDelayInput.setObjectName(u"maxDelayInput")
+        self.maxDelayInput.setMaximum(10000)
+        self.maxDelayInput.setValue(1000)
+
+        self.moreSettings.setWidget(4, QFormLayout.ItemRole.FieldRole, self.maxDelayInput)
+
+        self.label_burstMode = QLabel(self.verticalLayoutWidget_2)
+        self.label_burstMode.setObjectName(u"label_burstMode")
+
+        self.moreSettings.setWidget(5, QFormLayout.ItemRole.LabelRole, self.label_burstMode)
+
+        self.burstModeCheckbox = QCheckBox(self.verticalLayoutWidget_2)
+        self.burstModeCheckbox.setObjectName(u"burstModeCheckbox")
+
+        self.moreSettings.setWidget(5, QFormLayout.ItemRole.FieldRole, self.burstModeCheckbox)
+
+        self.label_burstCount = QLabel(self.verticalLayoutWidget_2)
+        self.label_burstCount.setObjectName(u"label_burstCount")
+
+        self.moreSettings.setWidget(6, QFormLayout.ItemRole.LabelRole, self.label_burstCount)
+
+        self.burstCountInput = QSpinBox(self.verticalLayoutWidget_2)
+        self.burstCountInput.setObjectName(u"burstCountInput")
+        self.burstCountInput.setMinimum(1)
+        self.burstCountInput.setMaximum(100)
+        self.burstCountInput.setValue(5)
+
+        self.moreSettings.setWidget(6, QFormLayout.ItemRole.FieldRole, self.burstCountInput)
+
+        self.label_burstPause = QLabel(self.verticalLayoutWidget_2)
+        self.label_burstPause.setObjectName(u"label_burstPause")
+
+        self.moreSettings.setWidget(7, QFormLayout.ItemRole.LabelRole, self.label_burstPause)
+
+        self.burstPauseInput = QSpinBox(self.verticalLayoutWidget_2)
+        self.burstPauseInput.setObjectName(u"burstPauseInput")
+        self.burstPauseInput.setMaximum(10000)
+        self.burstPauseInput.setValue(1000)
+
+        self.moreSettings.setWidget(7, QFormLayout.ItemRole.FieldRole, self.burstPauseInput)
+
 
         self.moreSettingsContainer.addLayout(self.moreSettings)
 
         self.verticalLayoutWidget_3 = QWidget(self.centralwidget)
         self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
-        self.verticalLayoutWidget_3.setGeometry(QRect(400, 40, 211, 171))
+        self.verticalLayoutWidget_3.setGeometry(QRect(400, 40, 330, 280))
         self.keybindsContainer = QVBoxLayout(self.verticalLayoutWidget_3)
         self.keybindsContainer.setObjectName(u"keybindsContainer")
         self.keybindsContainer.setContentsMargins(0, 0, 0, 0)
@@ -196,12 +266,46 @@ class Ui_MainWindow(object):
 
         self.keybindSettings.setWidget(2, QFormLayout.ItemRole.FieldRole, self.exitKeyInput)
 
+        self.label_pause = QLabel(self.verticalLayoutWidget_3)
+        self.label_pause.setObjectName(u"label_pause")
+
+        self.keybindSettings.setWidget(3, QFormLayout.ItemRole.LabelRole, self.label_pause)
+
+        self.pauseKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
+        self.pauseKeyInput.setObjectName(u"pauseKeyInput")
+        self.pauseKeyInput.setClearButtonEnabled(True)
+        self.pauseKeyInput.setMaximumSequenceLength(1)
+
+        self.keybindSettings.setWidget(3, QFormLayout.ItemRole.FieldRole, self.pauseKeyInput)
+
+        self.label_toggle = QLabel(self.verticalLayoutWidget_3)
+        self.label_toggle.setObjectName(u"label_toggle")
+
+        self.keybindSettings.setWidget(4, QFormLayout.ItemRole.LabelRole, self.label_toggle)
+
+        self.toggleKeyInput = QKeySequenceEdit(self.verticalLayoutWidget_3)
+        self.toggleKeyInput.setObjectName(u"toggleKeyInput")
+        self.toggleKeyInput.setClearButtonEnabled(True)
+        self.toggleKeyInput.setMaximumSequenceLength(1)
+
+        self.keybindSettings.setWidget(4, QFormLayout.ItemRole.FieldRole, self.toggleKeyInput)
+
+        self.label_toggleMode = QLabel(self.verticalLayoutWidget_3)
+        self.label_toggleMode.setObjectName(u"label_toggleMode")
+
+        self.keybindSettings.setWidget(5, QFormLayout.ItemRole.LabelRole, self.label_toggleMode)
+
+        self.toggleModeCheckbox = QCheckBox(self.verticalLayoutWidget_3)
+        self.toggleModeCheckbox.setObjectName(u"toggleModeCheckbox")
+
+        self.keybindSettings.setWidget(5, QFormLayout.ItemRole.FieldRole, self.toggleModeCheckbox)
+
 
         self.keybindsContainer.addLayout(self.keybindSettings)
 
         self.verticalLayoutWidget_4 = QWidget(self.centralwidget)
         self.verticalLayoutWidget_4.setObjectName(u"verticalLayoutWidget_4")
-        self.verticalLayoutWidget_4.setGeometry(QRect(400, 240, 211, 111))
+        self.verticalLayoutWidget_4.setGeometry(QRect(400, 340, 330, 111))
         self.CPSContainer = QVBoxLayout(self.verticalLayoutWidget_4)
         self.CPSContainer.setObjectName(u"CPSContainer")
         self.CPSContainer.setContentsMargins(0, 0, 0, 0)
@@ -236,7 +340,7 @@ class Ui_MainWindow(object):
         self.line.setFrameShadow(QFrame.Shadow.Sunken)
         self.line_2 = QFrame(self.centralwidget)
         self.line_2.setObjectName(u"line_2")
-        self.line_2.setGeometry(QRect(400, 230, 211, 21))
+        self.line_2.setGeometry(QRect(400, 330, 330, 21))
         self.line_2.setFrameShape(QFrame.Shape.HLine)
         self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -266,11 +370,23 @@ class Ui_MainWindow(object):
         self.clickTypeInput.setItemText(2, QCoreApplication.translate("MainWindow", u"Hold Click", None))
 
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Hold Duration (ms)", None))
+        self.label_randomDelay.setText(QCoreApplication.translate("MainWindow", u"Random Delay", None))
+        self.randomDelayCheckbox.setText("")
+        self.label_minDelay.setText(QCoreApplication.translate("MainWindow", u"Min Delay (ms)", None))
+        self.label_maxDelay.setText(QCoreApplication.translate("MainWindow", u"Max Delay (ms)", None))
+        self.label_burstMode.setText(QCoreApplication.translate("MainWindow", u"Burst Mode", None))
+        self.burstModeCheckbox.setText("")
+        self.label_burstCount.setText(QCoreApplication.translate("MainWindow", u"Burst Click Count", None))
+        self.label_burstPause.setText(QCoreApplication.translate("MainWindow", u"Burst Pause (ms)", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Controls", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Start clicking key", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stop clicking key", None))
         self.stopKeyInput.setKeySequence("")
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Force close app", None))
+        self.label_pause.setText(QCoreApplication.translate("MainWindow", u"Pause/Resume key", None))
+        self.label_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle key (when enabled)", None))
+        self.label_toggleMode.setText(QCoreApplication.translate("MainWindow", u"Enable Toggle Mode", None))
+        self.toggleModeCheckbox.setText("")
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"CPS", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Clicks per second: ", None))
     # retranslateUi

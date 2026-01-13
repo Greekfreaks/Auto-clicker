@@ -29,6 +29,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clickTypeInput.currentTextChanged.connect(self.update_click_type)
         self.holdDurationSlider.valueChanged.connect(self.update_hold_duration)
 
+        # Connect advanced timing widgets
+        self.randomDelayCheckbox.stateChanged.connect(self.update_random_delay)
+        self.minDelayInput.valueChanged.connect(self.update_min_delay)
+        self.maxDelayInput.valueChanged.connect(self.update_max_delay)
+        self.burstModeCheckbox.stateChanged.connect(self.update_burst_mode)
+        self.burstCountInput.valueChanged.connect(self.update_burst_count)
+        self.burstPauseInput.valueChanged.connect(self.update_burst_pause)
+
         #read the inputted keybinds
         self.startKeyInput.keySequenceChanged.connect(self.update_start_key)
         self.startKeyInput.setKeySequence('S')
@@ -36,6 +44,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.stopKeyInput.setKeySequence('X')
         self.exitKeyInput.keySequenceChanged.connect(self.update_exit_key)
         self.exitKeyInput.setKeySequence('Q')
+        self.pauseKeyInput.keySequenceChanged.connect(self.update_pause_key)
+        self.pauseKeyInput.setKeySequence('P')
+        self.toggleKeyInput.keySequenceChanged.connect(self.update_toggle_key)
+        self.toggleKeyInput.setKeySequence('T')
+
+        # Connect toggle mode checkbox
+        self.toggleModeCheckbox.stateChanged.connect(self.update_toggle_mode)
 
     #following 3 functions on parsing value taken from the click settings in UI
     def update_click_delay(self, value):
@@ -65,6 +80,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def update_exit_key(self, sequence):
         keystrokes = sequence.toString().lower()
         self.clicker.set_exit_key(keystrokes)
+
+    def update_pause_key(self, sequence):
+        keystrokes = sequence.toString().lower()
+        self.clicker.set_pause_key(keystrokes)
+
+    def update_toggle_key(self, sequence):
+        keystrokes = sequence.toString().lower()
+        self.clicker.set_toggle_key(keystrokes)
+
+    def update_toggle_mode(self, state):
+        self.clicker.set_toggle_mode(state == 2)  # 2 = Qt.Checked
+
+    def update_random_delay(self, state):
+        self.clicker.set_random_delay(state == 2)
+
+    def update_min_delay(self, value):
+        self.clicker.set_min_delay(value)
+
+    def update_max_delay(self, value):
+        self.clicker.set_max_delay(value)
+
+    def update_burst_mode(self, state):
+        self.clicker.set_burst_mode(state == 2)
+
+    def update_burst_count(self, value):
+        self.clicker.set_burst_count(value)
+
+    def update_burst_pause(self, value):
+        self.clicker.set_burst_pause(value)
 
     def close_application(self):
         """Close the application when exit key is pressed"""

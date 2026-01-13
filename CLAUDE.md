@@ -52,10 +52,29 @@ Settings changes from the GUI immediately update the `AutoClicker` instance via 
 ### Signal/Slot Connections
 
 GUI widgets connect to backend methods via Qt signals:
+
+**Auto Clicking Settings:**
 - `clickingMethodInput.currentTextChanged` → `update_clicking_method()`
 - `clickDelayInput.valueChanged` → `update_click_delay()`
 - `startDelayInput.valueChanged` → `update_start_delay()`
-- Keybind inputs use `keySequenceChanged` signals
+
+**More Settings (Click Types & Timing):**
+- `clickTypeInput.currentTextChanged` → `update_click_type()`
+- `holdDurationSlider.valueChanged` → `update_hold_duration()`
+- `randomDelayCheckbox.stateChanged` → `update_random_delay()`
+- `minDelayInput.valueChanged` → `update_min_delay()`
+- `maxDelayInput.valueChanged` → `update_max_delay()`
+- `burstModeCheckbox.stateChanged` → `update_burst_mode()`
+- `burstCountInput.valueChanged` → `update_burst_count()`
+- `burstPauseInput.valueChanged` → `update_burst_pause()`
+
+**Controls (Keybinds):**
+- All keybind inputs use `keySequenceChanged` signals
+- `toggleModeCheckbox.stateChanged` → `update_toggle_mode()`
+
+**Thread Signals:**
+- `ClickerThread.cps_updated` → `MainWindow.update_cps_display()`
+- `ClickerThread.exit_requested` → `MainWindow.close_application()`
 
 ## Recently Fixed Issues
 
@@ -76,8 +95,8 @@ GUI widgets connect to backend methods via Qt signals:
 - Updates LCD widget every 100ms
 - Thread-safe communication via Qt signals
 
-### Click Type Variations (Added in current session)
-The "More Settings" section now includes:
+### Click Type Variations
+The "More Settings" section includes:
 - **Click Type selector** (`clickTypeInput`): Choose between:
   - Single Click: Standard single click (default)
   - Double Click: Performs two clicks rapidly
@@ -85,3 +104,42 @@ The "More Settings" section now includes:
 - **Hold Duration slider** (`holdDurationSlider`): Adjustable duration (50-2000ms) for Hold Click mode
 
 Both settings work with all click methods (Left, Middle, Right)
+
+### Hotkey Improvements
+Enhanced control options with flexible keybinding modes:
+
+**Toggle Mode** (`toggleModeCheckbox`):
+- When enabled, use a single toggle key to start/stop clicking
+- When disabled, use separate start and stop keys (traditional mode)
+- Allows for simpler one-handed operation
+
+**Pause/Resume Functionality** (`pauseKeyInput`):
+- Different from stop - pause retains clicking state
+- Press pause key to temporarily halt clicking
+- Press again to resume from paused state
+- Works in both toggle and traditional modes
+
+**Keybind Configuration**:
+- `startKeyInput`: Key to start clicking (default: S)
+- `stopKeyInput`: Key to stop clicking (default: X)
+- `pauseKeyInput`: Key to pause/resume (default: P)
+- `toggleKeyInput`: Key for toggle mode (default: T)
+- `exitKeyInput`: Key to force close app (default: Q)
+
+All keybinds are **global hotkeys** - they work even when the application window is not focused.
+
+### Advanced Timing Options
+
+**Random Delay Range** (`randomDelayCheckbox`):
+- Simulates human-like clicking behavior
+- When enabled, delay varies randomly between min and max values
+- `minDelayInput`: Minimum delay between clicks (default: 250ms)
+- `maxDelayInput`: Maximum delay between clicks (default: 1000ms)
+- Uses uniform distribution for natural timing variation
+
+**Burst Mode** (`burstModeCheckbox`):
+- Performs rapid bursts of clicks followed by pauses
+- `burstCountInput`: Number of clicks per burst (1-100, default: 5)
+- `burstPauseInput`: Pause duration between bursts in milliseconds (default: 1000ms)
+- Useful for games or applications requiring periodic rapid input
+- Works with all click methods and types

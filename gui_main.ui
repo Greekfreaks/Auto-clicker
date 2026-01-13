@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>471</height>
+    <width>800</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
-     <width>644</width>
-     <height>450</height>
+     <width>800</width>
+     <height>680</height>
     </size>
    </property>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -156,8 +156,8 @@
      <rect>
       <x>30</x>
       <y>270</y>
-      <width>311</width>
-      <height>151</height>
+      <width>360</width>
+      <height>380</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="moreSettingsContainer">
@@ -243,6 +243,105 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_randomDelay">
+         <property name="text">
+          <string>Random Delay</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="randomDelayCheckbox">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_minDelay">
+         <property name="text">
+          <string>Min Delay (ms)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="minDelayInput">
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>250</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_maxDelay">
+         <property name="text">
+          <string>Max Delay (ms)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QSpinBox" name="maxDelayInput">
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_burstMode">
+         <property name="text">
+          <string>Burst Mode</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QCheckBox" name="burstModeCheckbox">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_burstCount">
+         <property name="text">
+          <string>Burst Click Count</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QSpinBox" name="burstCountInput">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_burstPause">
+         <property name="text">
+          <string>Burst Pause (ms)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QSpinBox" name="burstPauseInput">
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -252,8 +351,8 @@
      <rect>
       <x>400</x>
       <y>40</y>
-      <width>211</width>
-      <height>171</height>
+      <width>330</width>
+      <height>280</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="keybindsContainer">
@@ -332,6 +431,54 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_pause">
+         <property name="text">
+          <string>Pause/Resume key</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QKeySequenceEdit" name="pauseKeyInput">
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="maximumSequenceLength">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_toggle">
+         <property name="text">
+          <string>Toggle key (when enabled)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QKeySequenceEdit" name="toggleKeyInput">
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="maximumSequenceLength">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_toggleMode">
+         <property name="text">
+          <string>Enable Toggle Mode</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QCheckBox" name="toggleModeCheckbox">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -340,8 +487,8 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>240</y>
-      <width>211</width>
+      <y>340</y>
+      <width>330</width>
       <height>111</height>
      </rect>
     </property>
@@ -402,8 +549,8 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>230</y>
-      <width>211</width>
+      <y>330</y>
+      <width>330</width>
       <height>21</height>
      </rect>
     </property>

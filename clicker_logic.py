@@ -2,6 +2,7 @@ import threading
 import time
 import keyboard
 import pyautogui
+import random
 from pyautogui import click
 from collections import deque
 
@@ -10,6 +11,7 @@ class AutoClicker:
     def __init__(self):
         #loop variables
         self.clicking = False
+        self.paused = False
         self.running = True
         self.exit_requested = False
 
@@ -19,9 +21,23 @@ class AutoClicker:
         self.clickType = 'Single Click'  # Single, Double, or Hold
         self.holdDuration = 0.5  # Duration in seconds for hold click
 
+        # Hotkey settings
+        self.toggleMode = False  # Toggle mode: one key for start/stop
         self.startClickKey = 's'
         self.stopClickKey = 'x'
+        self.pauseClickKey = 'p'
+        self.toggleClickKey = 't'
         self.exitClickKey = 'q'
+
+        # Advanced timing settings
+        self.randomDelayEnabled = False
+        self.minClickDelay = 0.5
+        self.maxClickDelay = 1.0
+
+        # Burst mode settings
+        self.burstModeEnabled = False
+        self.burstClickCount = 5
+        self.burstPause = 1.0  # Pause duration between bursts
 
         # CPS tracking
         self.click_timestamps = deque(maxlen=100)  # Store last 100 click timestamps
@@ -32,17 +48,45 @@ class AutoClicker:
         pyautogui.PAUSE = 0 #remove default delay between clicks, this using the sleep class instead
 
     def key_listener(self):
+        toggle_pressed = False
+        pause_pressed = False
+
         while self.running:
-            if keyboard.is_pressed(self.startClickKey):
-                print('start')
-                self.clicking = True
-            elif keyboard.is_pressed(self.stopClickKey):
-                print('stop')
-                self.clicking = False
-            elif keyboard.is_pressed(self.exitClickKey):
+            # Handle toggle mode
+            if self.toggleMode:
+                if keyboard.is_pressed(self.toggleClickKey):
+                    if not toggle_pressed:
+                        self.clicking = not self.clicking
+                        print('toggle: clicking' if self.clicking else 'toggle: stopped')
+                        toggle_pressed = True
+                else:
+                    toggle_pressed = False
+            else:
+                # Standard start/stop mode
+                if keyboard.is_pressed(self.startClickKey):
+                    print('start')
+                    self.clicking = True
+                    self.paused = False
+                elif keyboard.is_pressed(self.stopClickKey):
+                    print('stop')
+                    self.clicking = False
+                    self.paused = False
+
+            # Handle pause/resume (works in both modes)
+            if keyboard.is_pressed(self.pauseClickKey):
+                if not pause_pressed:
+                    self.paused = not self.paused
+                    print('paused' if self.paused else 'resumed')
+                    pause_pressed = True
+            else:
+                pause_pressed = False
+
+            # Handle exit
+            if keyboard.is_pressed(self.exitClickKey):
                 print('quit')
                 self.running = False
                 self.exit_requested = True
+
             time.sleep(0.1)
 
     def set_click_method(self, value):
@@ -79,41 +123,44 @@ class AutoClicker:
                 time.sleep(self.holdDuration)
                 pyautogui.mouseUp(button='right')
 
-    def left_click(self):
+    def click_loop(self, button):
+        """Unified click loop with burst mode and pause support"""
         delay_flag = False
+        burst_counter = 0
+
         while self.running:
+            # Initial start delay
             if not delay_flag:
                 time.sleep(self.startDelay)
                 delay_flag = True
-            if self.clicking:
-                self.perform_click('left')
+
+            # Check if we should click
+            if self.clicking and not self.paused:
+                # Perform the click
+                self.perform_click(button)
                 self.record_click()
-                print("Click!")
-            time.sleep(self.clickDelay)
+                print(f"Click! ({button})")
+
+                # Handle burst mode
+                if self.burstModeEnabled:
+                    burst_counter += 1
+                    if burst_counter >= self.burstClickCount:
+                        print(f"Burst complete, pausing for {self.burstPause}s")
+                        time.sleep(self.burstPause)
+                        burst_counter = 0
+
+            # Get delay (random or fixed)
+            delay = self.get_current_delay()
+            time.sleep(delay)
+
+    def left_click(self):
+        self.click_loop('left')
 
     def middle_click(self):
-        delay_flag = False
-        while self.running:
-            if not delay_flag:
-                time.sleep(self.startDelay)
-                delay_flag = True
-            if self.clicking:
-                self.perform_click('middle')
-                self.record_click()
-                print("Click!")
-            time.sleep(self.clickDelay)
+        self.click_loop('middle')
 
     def right_click(self):
-        delay_flag = False
-        while self.running:
-            if not delay_flag:
-                time.sleep(self.startDelay)
-                delay_flag = True
-            if self.clicking:
-                self.perform_click('right')
-                self.record_click()
-                print("Click!")
-            time.sleep(self.clickDelay)
+        self.click_loop('right')
 
     #update values taken from the auto click settings
     def set_click_delay(self, value):
@@ -136,6 +183,40 @@ class AutoClicker:
         print(f"Hold duration set to: {duration}ms")
         self.holdDuration = duration / 1000  # Convert to seconds
 
+    def get_current_delay(self):
+        """Get the current click delay (random if enabled)"""
+        if self.randomDelayEnabled:
+            return random.uniform(self.minClickDelay, self.maxClickDelay)
+        return self.clickDelay
+
+    def set_toggle_mode(self, enabled:bool):
+        print(f"Toggle mode set to: {enabled}")
+        self.toggleMode = enabled
+
+    def set_random_delay(self, enabled:bool):
+        print(f"Random delay set to: {enabled}")
+        self.randomDelayEnabled = enabled
+
+    def set_min_delay(self, value:int):
+        print(f"Min delay set to: {value}ms")
+        self.minClickDelay = value / 1000
+
+    def set_max_delay(self, value:int):
+        print(f"Max delay set to: {value}ms")
+        self.maxClickDelay = value / 1000
+
+    def set_burst_mode(self, enabled:bool):
+        print(f"Burst mode set to: {enabled}")
+        self.burstModeEnabled = enabled
+
+    def set_burst_count(self, count:int):
+        print(f"Burst count set to: {count}")
+        self.burstClickCount = count
+
+    def set_burst_pause(self, value:int):
+        print(f"Burst pause set to: {value}ms")
+        self.burstPause = value / 1000
+
     #udpate keybinds taken from the keybinds menu
     def set_start_key(self, method:str):
         print(f"Start keybind set to: {method}")
@@ -148,6 +229,14 @@ class AutoClicker:
     def set_exit_key(self, method:str):
         print(f"Exit keybind set to: {method}")
         self.exitClickKey = method
+
+    def set_pause_key(self, method:str):
+        print(f"Pause keybind set to: {method}")
+        self.pauseClickKey = method
+
+    def set_toggle_key(self, method:str):
+        print(f"Toggle keybind set to: {method}")
+        self.toggleClickKey = method
 
     def set_cps_callback(self, callback):
         """Set the callback function to update CPS in the GUI"""
